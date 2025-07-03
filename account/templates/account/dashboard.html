@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="text-center mb-5">
+                    <h1 class="fw-bold display-4">Bem-vindo ao Dashboard!</h1>
+                    <p class="lead mt-4 mb-0 fs-4">
+                        👋 Bem-vindo, <strong>{{ user.username }}</strong>! Que bom ter você de volta.
+                    </p>
+                </div>
+
+                <div class="row g-5">
+                    <div class="col-md-5">
+                        <div class="card h-100">
+                            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                                <h5 class="card-title mb-4 fs-3">Destaques</h5>
+                                <div id="highlights" style="font-size:1.3rem;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0 fs-3">Vendas por Dia</h4>
+                                <button class="btn btn-link p-0" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseVendas" aria-expanded="true"
+                                        aria-controls="collapseVendas">
+                                    <i id="chevronVendas" class="bi bi-chevron-down" style="font-size: 2rem;"></i>
+                                </button>
+                            </div>
+                            <div id="collapseVendas" class="collapse show">
+                                <div class="card-body">
+                                    <canvas id="vendas-chart" width="1100" height="500"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Outros gráficos podem ser adicionados em novas linhas/colunas -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {% include 'partials/scripts.html' %}
+    <script src="{% static 'js/collapse-chevron.js' %}"></script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}

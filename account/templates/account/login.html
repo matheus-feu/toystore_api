@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="text-center mb-4">
+                    <h2>Login</h2>
+                </div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} mb-2">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors|join:" " }}
+                    </div>
+                {% endif %}
+
+                <form method="post" novalidate class="p-4 border rounded bg-white shadow-sm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.username.label_tag }}
+                        {{ form.username|add_class:"form-control" }}
+                        {% for error in form.username.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.password.label_tag }}
+                        <div class="input-group">
+                            {{ form.password|add_class:"form-control" }}
+                        </div>
+                        {% for error in form.password.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-3">Entrar</button>
+                </form>
+
+                <div class="text-center my-3">
+                    <span>ou</span>
+                </div>
+
+                <div class="social mb-3">
+                    <ul class="list-unstyled">
+                        <li class="google">
+                            <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-outline-danger w-100">
+                                Entrar com Google
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

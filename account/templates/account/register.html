@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}Registrar{% endblock %}
+
+{% block content %}
+    <div class="container mt-5" style="max-width: 400px;">
+        <h2 class="mb-4 text-center">Registre-se</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="mb-3">
+                <label>{{ form.username.label }} <span>*</span></label>
+                {{ form.username|add_class:"form-control" }}
+                {% if form.username.help_text %}
+                    <small>{{ form.username.help_text|safe }}</small>
+                {% endif %}
+                {% if form.username.errors %}
+                    <div class="text-danger">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label>{{ form.email.label }} <span>*</span></label>
+                {{ form.email|add_class:"form-control" }}
+                {% if form.email.help_text %}
+                    <small>{{ form.email.help_text|safe }}</small>
+                {% endif %}
+                {% if form.email.errors %}
+                    <div class="text-danger">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3 position-relative">
+                <label>{{ form.password.label }} <span>*</span></label>
+                <div class="input-group">
+                    {{ form.password|add_class:"form-control" }}
+                </div>
+                {% if form.password.help_text %}
+                    <small>{{ form.password.help_text|safe }}</small>
+                {% endif %}
+                {{ form.password.errors }}
+            </div>
+            <div class="mb-3 position-relative">
+                <label>{{ form.password_confirmation.label }} <span>*</span></label>
+                <div class="input-group">
+                    {{ form.password_confirmation|add_class:"form-control" }}
+                </div>
+                {{ form.password_confirmation.errors }}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mt-3">Registrar</button>
+        </form>
+    </div>
+{% endblock %}
+
